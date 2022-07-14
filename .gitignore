@@ -1,0 +1,4 @@
+app/tutorials/migrations
+app/users/migrations
+app/.env
+venv

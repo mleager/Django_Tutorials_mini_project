@@ -20,4 +20,4 @@ Concept:
     - Edit Django's 'command' in docker-compose.yml to make migrations 
       when the container is created 
 
-    - Utilize Insomnia to send API requests.
+    - Utilize Insomnia to send API requests.#Django_Tutorials_mini_project
