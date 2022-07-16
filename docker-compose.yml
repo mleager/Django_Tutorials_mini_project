@@ -2,6 +2,7 @@ version: "3.8"
 services:
   web:
     build: ./app
+    image: 772227205276.dkr.ecr.us-east-1.amazonaws.com/exercise-1:workshop1_django
     command: >
       sh -c "python manage.py makemigrations --noinput
              python manage.py migrate --noinput &&
@@ -15,14 +16,16 @@ services:
       - DB_NAME=my_tutorials_db
       - DB_USER=postgres
       - DB_PASSWORD=admin123
-      - DB_HOST=pg
+      - DB_HOST=exercise-db.c7dqswqkkr5e.us-east-1.rds.amazonaws.com
       - DB_PORT=5432
       - DATABASE=postgres
+      - VIRTUAL_HOST=ec2-54-161-245-133.compute-1.amazonaws.com
+      - VIRTUAL_PORT=8000
     depends_on:
       - pg
   pg:
     container_name: pg_container2
-    image: postgres:13.2-alpine
+    image: 772227205276.dkr.ecr.us-east-1.amazonaws.com/exercise-1:workshop1_postgres_DB
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -37,7 +40,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
   pgadmin:
     container_name: pgadmin_container2
-    image: dpage/pgadmin4:5.2
+    image: 772227205276.dkr.ecr.us-east-1.amazonaws.com/exercise-1:workshop1_pgadmin
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
