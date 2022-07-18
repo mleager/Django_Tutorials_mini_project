@@ -3,17 +3,14 @@ services:
   web:
     build: ./app
     image: 772227205276.dkr.ecr.us-east-1.amazonaws.com/exercise-1:workshop1_django
-    command: >
-      sh -c "python manage.py makemigrations --noinput
-             python manage.py migrate --noinput &&
-             python manage.py runserver 0.0.0.0:8000"
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - django-data:/var/lib/django/data
       - ./app/:/usr/src/app/
     ports:
       - 8000:8000
     environment:
-      - DB_NAME=my_tutorials_db
+      - DB_NAME=my_tutorials
       - DB_USER=postgres
       - DB_PASSWORD=admin123
       - DB_HOST=exercise-db.c7dqswqkkr5e.us-east-1.rds.amazonaws.com
@@ -25,12 +22,12 @@ services:
       - pg
   pg:
     container_name: pg_container2
-    image: 772227205276.dkr.ecr.us-east-1.amazonaws.com/exercise-1:workshop1_postgres_DB
+    image: postgres:13.2-alpine
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: my_tutorials_db
+      POSTGRES_DB: my_tutorials
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
@@ -40,7 +37,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
   pgadmin:
     container_name: pgadmin_container2
-    image: 772227205276.dkr.ecr.us-east-1.amazonaws.com/exercise-1:workshop1_pgadmin
+    image: dpage/pgadmin4:5.2
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
